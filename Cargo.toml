@@ -1,0 +1,23 @@
+[package]
+name = "adviverse-desktop-native"
+version = "0.1.0"
+edition = "2021"
+license = "UNLICENSED"
+description = "Adviverse ads C ABI for pure-native desktop apps (Qt / Cocoa / WinUI / GTK)."
+
+[lib]
+# staticlib (link into a native app) + cdylib (load as a shared lib). Header in
+# include/adviverse.h.
+name = "adviverse"
+crate-type = ["staticlib", "cdylib"]
+
+[dependencies]
+ureq = { version = "2.10", features = ["tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+open = "5"
+
+[profile.release]
+lto = true
+strip = true
+opt-level = "z"
